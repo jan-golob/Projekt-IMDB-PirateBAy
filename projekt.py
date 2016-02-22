@@ -1,5 +1,5 @@
 
-import PretnarOsnova as pr
+# import PretnarOsnova as pr
 import re
 #source https://ukpirate.org/s/?q=((interstellar))&video=on&category=0&page=0&orderby=99$
 
@@ -32,7 +32,7 @@ def raz_zanr(zanri):
         ys.append(re.findall(r'<a href="/genre/(.*?)">', y))
     return ys
         
-## http://www.imdb.com/search/title?count=100&release_date=2004,2014&sort=moviemeter&start={}&title_type=feature
+# http://www.imdb.com/search/title?count=100&release_date=2004,2014&sort=moviemeter&start={}&title_type=feature
 
 Slovar_l = []
 Slovar_z = []
@@ -53,23 +53,45 @@ for m in range(n):
         for j in zanr[i]:
             dvojci_z.append({"Id":m*100+i ,"zanr":j})
     Slovar_z += dvojci_z
-            
 
-##Slovar_l=[{'IMBD glasov': '820,170', 'Id': 1, 'IMDB ocena': '8.6', 'leto': '2014', 'ime': 'Interstellar'}]
+
+Slovar_l=[{'IMBD glasov': '820,170', 'Id': 1, 'IMDB ocena': '8.6', 'leto': '2014', 'ime': 'Interstellar'}]
 
 for j in range(len(Slovar_l)):
-    pr.shrani("https://ukpirate.org/s/?q={}&video=on&category=0&page=0&orderby=99$".format(remove(Slovar_l[j]["ime"])), "PirateBay_temp.txt", vsili_prenos=True)
+    naslov_all = remove(Slovar_l[j]["ime"])
+    naslov_all2 = naslov_all.split()
+    if len(naslov_all2) == 1:
+        naslov = naslov_all[0]
+    elif naslov_all2[0] in ["The","A"]:
+        naslov = naslov_all2[1]
+    else:
+        naslov = naslov_all2[0]
+
+    pr.shrani("https://ukpirate.org/s/?q={}&video=on&category=0&page=0&orderby=99$".format(naslov_all), "PirateBay_temp.txt", vsili_prenos=True)
     with open('PirateBay_temp.txt', 'r', encoding="utf-8") as myfile:
         data=myfile.read().replace('\n', '')
+
+
+    leto = remove(Slovar_l[j]["leto"])
 
     prenosi = re.findall(r'<td align="right">(\d*?)</td>', data)
     seed = []
     leec = []
+    imena = re.findall(r'<div class="detName">			<a href="/torrent/\d*?/(.*?)class=',data)
+
     for i in range(0, len(prenosi), 2):
-        seed.append(prenosi[i])
-        leec.append(prenosi[i+1])
-    Slovar_l[j]["PBay_sejalci"]=sum(map(int,seed))
-    Slovar_l[j]["PBay_pijavke"]=sum(map(int,leec))
+        if re.findall(leto,imena[i//2]) and re.findall(naslov,imena[i//2]):
+            seed.append(prenosi[i])
+            leec.append(prenosi[i+1])
+
+
+    seedN=sum(map(int,seed))
+    leecN=sum(map(int,leec))
+
+
+    Slovar_l[j]["PBay_sejalci"]= seedN
+    Slovar_l[j]["PBay_pijavke"]= leecN
+
 
 print(Slovar_l)
 print(Slovar_z)
