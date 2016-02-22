@@ -1,5 +1,5 @@
 
-# import PretnarOsnova as pr
+import PretnarOsnova as pr
 import re
 #source https://ukpirate.org/s/?q=((interstellar))&video=on&category=0&page=0&orderby=99$
 
@@ -55,7 +55,7 @@ for m in range(n):
     Slovar_z += dvojci_z
 
 
-Slovar_l=[{'IMBD glasov': '820,170', 'Id': 1, 'IMDB ocena': '8.6', 'leto': '2014', 'ime': 'Interstellar'}]
+#Slovar_l=[{'IMBD glasov': '820,170', 'Id': 1, 'IMDB ocena': '8.6', 'leto': '2014', 'ime': 'Interstellar'}]
 
 for j in range(len(Slovar_l)):
     naslov_all = remove(Slovar_l[j]["ime"])
