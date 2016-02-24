@@ -1,5 +1,5 @@
 
-# import PretnarOsnova as pr
+import PretnarOsnova as pr
 import re
 #source https://ukpirate.org/s/?q=((interstellar))&video=on&category=0&page=0&orderby=99$
 
@@ -12,7 +12,7 @@ def remove(x):
     elif x == "Mission: Impossible - Ghost Protocol":
         return "Ghost Protocol"
     else:
-        return x.replace("'", " ").replace(":"," ").replace("&", " ")
+        return x.replace("'", "").replace(":","").replace(" & ", " ")
 
 def raz_ocene(oce):
     xs = []
@@ -45,17 +45,17 @@ for m in range(n):
 
     m_slovar=[]
     for i in range(len(imena)):
-        m_slovar.append({"Id":m*100+i ,"ime":imena[i][0][0], "leto":imena[i][0][1], "IMDB_ocena":ocene[i][0][0], "IMBD_glasovi":int((ocene[i][0][1]).replace(",",""))})
+        m_slovar.append({"Id":m*100+i ,"ime":imena[i][0][0], "leto":imena[i][0][1], "IMDB_ocena":ocene[i][0][0], "IMDB_glasovi":int((ocene[i][0][1]).replace(",",""))})
     Slovar_l += m_slovar
 
     dvojci_z = []
     for i in range(len(zanr)):
         for j in zanr[i]:
-            dvojci_z.append({"Id":m*100+i ,"zanr":j})
+            dvojci_z.append({"st":m*100+i ,"zanr":j})
     Slovar_z += dvojci_z
 
 
-Slovar_l=[{'IMBD glasov': '820,170', 'Id': 1, 'IMDB ocena': '8.6', 'leto': '2014', 'ime': 'Interstellar'}]
+# Slovar_l=[{'IMDB glasovi': '820,170', 'Id': 1, 'IMDB ocena': '8.6', 'leto': '2014', 'ime': 'Interstellar'}]
 
 for j in range(len(Slovar_l)):
     naslov_all = remove(Slovar_l[j]["ime"])
@@ -96,5 +96,5 @@ for j in range(len(Slovar_l)):
 print(Slovar_l)
 print(Slovar_z)
 
-pr.zapisi_tabelo(Slovar_l,["Id","ime","leto","IMDB_ocena","IMBD_glasovi", "PBay_sejalci", "PBay_pijavke"],"Podatki_Projekt.csv")
-pr.zapisi_tabelo(Slovar_z,["Id","zanr"], "Zanr_projekt.csv")
+pr.zapisi_tabelo(Slovar_l,["Id","ime","leto","IMDB_ocena","IMDB_glasovi", "PBay_sejalci", "PBay_pijavke"],"Podatki_Projekt.csv")
+pr.zapisi_tabelo(Slovar_z,["st","zanr"], "Zanr_projekt.csv")
