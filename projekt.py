@@ -55,7 +55,11 @@ for m in range(n):
     Slovar_z += dvojci_z
 
 
+<<<<<<< HEAD
 # Slovar_l=[{'IMDB glasovi': '820,170', 'Id': 1, 'IMDB ocena': '8.6', 'leto': '2014', 'ime': 'Interstellar'}]
+=======
+#Slovar_l=[{'IMBD glasov': '820,170', 'Id': 1, 'IMDB ocena': '8.6', 'leto': '2014', 'ime': 'Interstellar'}]
+>>>>>>> f1b6fe3241001105e5aa4c02dd533253f4711496
 
 for j in range(len(Slovar_l)):
     naslov_all = remove(Slovar_l[j]["ime"])
